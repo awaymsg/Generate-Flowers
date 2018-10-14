@@ -10,22 +10,23 @@ public class PetalDrawer : MonoBehaviour {
     public int Geometry;
     public Color[] PrettyColors;
 
-    Mesh mesh;
-    MeshRenderer rendererer;
+    Mesh Mesh;
+    MeshRenderer Rendererer;
     float MoveZ;
-    Vector3[] vertices;
-    int[] triangles;
+    Vector3[] Vertices;
+    int[] Triangles;
 
     void Awake()
     {
-        mesh = GetComponent<MeshFilter>().mesh;
-        rendererer = GetComponent<MeshRenderer>();
+        Mesh = GetComponent<MeshFilter>().mesh;
+        Rendererer = GetComponent<MeshRenderer>();
     }
 
     private void Start()
     {
         MakeMeshData();
         DrawPetal();
+        //MakeInvertMesh(Vertices, Triangles);
         SetColor(Randomseed);
     }
 
@@ -38,30 +39,33 @@ public class PetalDrawer : MonoBehaviour {
         float wideth = (float)rand.NextDouble() * 0.3f + 0.2f;
         if (randnum < 0.33)
         {
-            vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(0, 1, 0) * Size, new Vector3(1, 1, -0.5f) * Size };
-            triangles = new int[] { 0, 1, 2 };
+            Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(0, 1, 0) * Size, new Vector3(1, 1, -0.5f) * Size,
+                new Vector3(0, 0, 0) * Size, new Vector3(0, 1, 0) * Size, new Vector3(1, 1, -0.5f) * Size};
+            Triangles = new int[] { 0, 1, 2, 3, 5, 4 };
         } else if (randnum >= 0.33f && randnum < 0.66f)
         {
-            vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(-wideth, 0.5f, 0) * Size,
-                new Vector3(wideth, 0.5f, -0.5f) * Size, new Vector3(0, 1, MoveZ) };
-            triangles = new int[] { 0, 1, 2, 2, 1, 3 };
+            Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(-wideth, 0.5f, 0) * Size,
+                new Vector3(wideth, 0.5f, -0.5f) * Size, new Vector3(0, 1, MoveZ),
+                new Vector3(0, 0, 0) * Size, new Vector3(-wideth, 0.5f, 0) * Size,
+                new Vector3(wideth, 0.5f, -0.5f) * Size, new Vector3(0, 1, MoveZ)};
+            Triangles = new int[] { 0, 1, 2, 2, 1, 3, 3, 5, 4, 4, 6, 3 };
         } else if (randnum >= 0.66f)
         {
-            vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(-wideth, 0.5f, 0) * Size,
-                new Vector3(wideth, 0.5f, -0.5f) * Size };
-            triangles = new int[] { 0, 1, 2 };
+            Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(-wideth, 0.5f, 0) * Size, new Vector3(wideth, 0.5f, -0.5f) * Size,
+                new Vector3(0, 0, 0) * Size, new Vector3(-wideth, 0.5f, 0) * Size, new Vector3(wideth, 0.5f, -0.5f) * Size};
+            Triangles = new int[] { 0, 1, 2, 3, 5, 4 };
         }
     }
 
     void DrawPetal()
     {
-        mesh.Clear();
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-        mesh.RecalculateNormals();
+        Mesh.Clear();
+        Mesh.vertices = Vertices;
+        Mesh.triangles = Triangles;
+        Mesh.RecalculateNormals();
     }
 
-    public void SetColor(int randomseed)
+    void SetColor(int randomseed)
     {
         var rand = new System.Random(randomseed);
         double randnum = rand.NextDouble();
@@ -69,7 +73,7 @@ public class PetalDrawer : MonoBehaviour {
         float blackoffset = (float)rand.NextDouble() / 3;
         Debug.Log(randnum);
         Material PetalColor = new Material(PetalMaterial);
-        rendererer.material = PetalColor;
+        Rendererer.material = PetalColor;
         if (randnum < 0.125f)
         {
             PetalColor.color = PrettyColors[0] + Color.white * whiteoffset + Color.black * blackoffset;
@@ -102,6 +106,15 @@ public class PetalDrawer : MonoBehaviour {
         {
             PetalColor.color = PrettyColors[7] + Color.white * whiteoffset + Color.black * blackoffset;
         }
+    }
+
+    void MakeInvertMesh (Vector3[] vertices, int[] triangles)
+    {
+        int v = vertices.Length;
+        int t = triangles.Length;
+        Vector3[] normalz = Mesh.normals;
+        Debug.Log(v);
+        Debug.Log(t);
     }
 
     // Update is called once per frame
