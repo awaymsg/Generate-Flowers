@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\CameraScript.cs" />
     <Compile Include="Assets\Scripts\CorollaGenerator.cs" />
     <Compile Include="Assets\Scripts\PetalDrawer.cs" />
     <Reference Include="UnityEditor.StandardEvents">
