@@ -13,17 +13,33 @@ public class PetalDrawer : MonoBehaviour {
     Mesh Mesh;
     MeshRenderer Rendererer;
     float MoveZ;
+    float MaxSize;
+    float XFactor;
+    float YFactor;
+    float ZFactor;
+    float Lifespan;
     Vector3[] Vertices;
     int[] Triangles;
 
+    enum LifeCycle { bulbgrow, flowering, hasflowered }
+    LifeCycle lifec;
+
     void Awake()
     {
+        Size = 0.05f;
+        XFactor = 0;
+        YFactor = 0;
+        ZFactor = 0.5f;
+        Lifespan = 5f;
+        lifec = LifeCycle.bulbgrow;
         Mesh = GetComponent<MeshFilter>().mesh;
         Rendererer = GetComponent<MeshRenderer>();
     }
 
     private void Start()
     {
+        var rand = new System.Random(Randomseed);
+        MaxSize = (float)rand.NextDouble() * 0.8f + 0.5f;
         MakeMeshData();
         DrawPetal();
         //MakeInvertMesh(Vertices, Triangles);
@@ -35,24 +51,23 @@ public class PetalDrawer : MonoBehaviour {
         var rand = new System.Random(Randomseed);
         double randnum = rand.NextDouble();
         MoveZ = (float)(rand.NextDouble());
-        Size = (float)rand.NextDouble() * 0.8f + 0.5f;
         float wideth = (float)rand.NextDouble() * 0.3f + 0.2f;
         if (randnum < 0.33)
         {
-            Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(0, 1, 0) * Size, new Vector3(1, 1, -0.5f) * Size,
-                new Vector3(0, 0, 0) * Size, new Vector3(0, 1, 0) * Size, new Vector3(1, 1, -0.5f) * Size};
+            Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(0, 1 * YFactor, 0 - ZFactor) * Size, new Vector3(1, 1 * YFactor, -0.5f -ZFactor) * Size,
+                new Vector3(0, 0, 0) * Size, new Vector3(0, 1 * YFactor, 0 - ZFactor) * Size, new Vector3(1, 1 * YFactor, -0.5f - ZFactor) * Size };
             Triangles = new int[] { 0, 1, 2, 3, 5, 4 };
         } else if (randnum >= 0.33f && randnum < 0.66f)
         {
-            Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(-wideth, 0.5f, 0) * Size,
-                new Vector3(wideth, 0.5f, -0.5f) * Size, new Vector3(0, 1, MoveZ),
-                new Vector3(0, 0, 0) * Size, new Vector3(-wideth, 0.5f, 0) * Size,
-                new Vector3(wideth, 0.5f, -0.5f) * Size, new Vector3(0, 1, MoveZ)};
+            Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(-wideth * XFactor, 0.5f * YFactor, 0 - ZFactor) * Size,
+                new Vector3(wideth * XFactor, 0.5f * YFactor, -0.5f - ZFactor) * Size, new Vector3(0, 1 * YFactor, MoveZ - ZFactor) * Size,
+                new Vector3(0, 0, 0) * Size, new Vector3(-wideth * XFactor, 0.5f * YFactor, 0 - ZFactor) * Size,
+                new Vector3(wideth * XFactor, 0.5f * YFactor, -0.5f - ZFactor) * Size, new Vector3(0, 1 * YFactor, MoveZ - ZFactor) * Size };
             Triangles = new int[] { 0, 1, 2, 2, 1, 3, 3, 5, 4, 4, 6, 3 };
         } else if (randnum >= 0.66f)
         {
-            Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(-wideth, 0.5f, 0) * Size, new Vector3(wideth, 0.5f, -0.5f) * Size,
-                new Vector3(0, 0, 0) * Size, new Vector3(-wideth, 0.5f, 0) * Size, new Vector3(wideth, 0.5f, -0.5f) * Size};
+            Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(-wideth * XFactor, 0.5f * YFactor, 0 - ZFactor) * Size, new Vector3(wideth * XFactor, 0.5f * YFactor, -0.5f - ZFactor) * Size,
+                new Vector3(0, 0, 0) * Size, new Vector3(-wideth * XFactor, 0.5f * YFactor, 0 - ZFactor) * Size, new Vector3(wideth * XFactor, 0.5f * YFactor, -0.5f - ZFactor) * Size };
             Triangles = new int[] { 0, 1, 2, 3, 5, 4 };
         }
     }
@@ -119,6 +134,31 @@ public class PetalDrawer : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
+        if (Size < MaxSize)
+        {
+            Size += 0.2f * Time.deltaTime;
+        } else
+        {
+            lifec = LifeCycle.flowering;
+        }
+        if (lifec == LifeCycle.flowering)
+        {
+            if (XFactor <= 1)
+                XFactor += 0.1f * Time.deltaTime;
+            if (YFactor <= 1)
+                YFactor += 0.1f * Time.deltaTime;
+            if (ZFactor >= 0)
+                ZFactor -= 0.1f * Time.deltaTime;
+        }
+        if (XFactor >= 1 && YFactor >= 1 && ZFactor <= 0)
+            lifec = LifeCycle.hasflowered;
+        if (lifec == LifeCycle.hasflowered)
+        {
+            Lifespan -= Time.deltaTime;
+        }
+        if (Lifespan < 0)
+            Destroy(transform.parent.gameObject);
+        MakeMeshData();
+        DrawPetal();
 	}
 }

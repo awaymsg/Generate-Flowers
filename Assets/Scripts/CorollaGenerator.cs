@@ -6,16 +6,18 @@ public class CorollaGenerator : MonoBehaviour {
 
     public GameObject CenterPoint;
     public GameObject Petal;
+    bool StopGeneration;
     int PetalNum;
 
 	// Use this for initialization
 	void Start () {
+        StopGeneration = false;
         StartCoroutine(GenerateCorolla(50));
 	}
 
     IEnumerator GenerateCorolla(int corollanum)
     {
-        while (!Input.GetKeyDown("x"))
+        while (!StopGeneration)
         { 
             PetalNum = Random.Range(4, 10);
             StartCoroutine(GeneratePetal(PetalNum));
@@ -41,6 +43,9 @@ public class CorollaGenerator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            StopGeneration = true;
+        }
 	}
 }
