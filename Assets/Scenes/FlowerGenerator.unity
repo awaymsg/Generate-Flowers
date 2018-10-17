@@ -179,6 +179,94 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1001 &280168889
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4083323256347028, guid: 1a52d7de479c4db4f8967407f253a7b4, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 7.990947
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083323256347028, guid: 1a52d7de479c4db4f8967407f253a7b4, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 10.216749
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083323256347028, guid: 1a52d7de479c4db4f8967407f253a7b4, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 6.72398
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083323256347028, guid: 1a52d7de479c4db4f8967407f253a7b4, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083323256347028, guid: 1a52d7de479c4db4f8967407f253a7b4, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083323256347028, guid: 1a52d7de479c4db4f8967407f253a7b4, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083323256347028, guid: 1a52d7de479c4db4f8967407f253a7b4, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083323256347028, guid: 1a52d7de479c4db4f8967407f253a7b4, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1a52d7de479c4db4f8967407f253a7b4, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1001 &447141932
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4023628964411390, guid: 20675b7a356b71d4c826a6e06911ca5a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.3723918
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023628964411390, guid: 20675b7a356b71d4c826a6e06911ca5a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2.9172564
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023628964411390, guid: 20675b7a356b71d4c826a6e06911ca5a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1.7094456
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023628964411390, guid: 20675b7a356b71d4c826a6e06911ca5a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023628964411390, guid: 20675b7a356b71d4c826a6e06911ca5a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023628964411390, guid: 20675b7a356b71d4c826a6e06911ca5a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023628964411390, guid: 20675b7a356b71d4c826a6e06911ca5a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023628964411390, guid: 20675b7a356b71d4c826a6e06911ca5a, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1116582310672972, guid: 20675b7a356b71d4c826a6e06911ca5a, type: 2}
+      propertyPath: m_Name
+      value: CorollaGenerator
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 20675b7a356b71d4c826a6e06911ca5a, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,46 +363,3 @@ MonoBehaviour:
   targetDirection: {x: 0, y: 0}
   targetCharacterDirection: {x: 0, y: 0}
   characterBody: {fileID: 0}
---- !u!1 &1700961161
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1700961162}
-  - component: {fileID: 1700961163}
-  m_Layer: 0
-  m_Name: CorollaGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1700961162
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1700961161}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3723918, y: -2.9172564, z: 1.7094456}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1700961163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1700961161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95be2a4b7c12db24e92f8ddd81a6f860, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CenterPoint: {fileID: 1212557303965386, guid: 627ea8eb7bdfb3546bdec813008d6f2a,
-    type: 2}
-  Petal: {fileID: 1632181098132120, guid: b52ef2f2415ae5d4e9b095d436b5a982, type: 2}

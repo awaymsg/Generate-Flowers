@@ -54,3 +54,4 @@ MonoBehaviour:
   CenterPoint: {fileID: 1212557303965386, guid: 627ea8eb7bdfb3546bdec813008d6f2a,
     type: 2}
   Petal: {fileID: 1632181098132120, guid: b52ef2f2415ae5d4e9b095d436b5a982, type: 2}
+  Seed: {fileID: 1975736767044914, guid: 340e85faf63bd5a47a6e383edd40784f, type: 2}
