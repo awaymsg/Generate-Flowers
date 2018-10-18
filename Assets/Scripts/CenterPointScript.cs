@@ -5,6 +5,8 @@ using UnityEngine;
 public class CenterPointScript : MonoBehaviour {
 
     bool IsFruiting;
+    FlowerStats flowerstats = new FlowerStats();
+    Color FlowerColor;
     public float Size;
     [SerializeField] GameObject SeedGeneratorr;
 
@@ -19,7 +21,7 @@ public class CenterPointScript : MonoBehaviour {
             if (value != IsFruiting)
             {
                 IsFruiting = true;
-                SeedGeneratorr.GetComponent<SeedGenerator>().GenerateSeed(transform, Size);
+                SeedGeneratorr.GetComponent<SeedGenerator>().GenerateSeed(transform, flowerstats);
             }
         }
     }
@@ -28,6 +30,11 @@ public class CenterPointScript : MonoBehaviour {
 	void Start () {
         IsFruiting = false;
 	}
+
+    public void GetFlowerStats(FlowerStats flowerstatz)
+    {
+        flowerstats = flowerstatz;
+    }
 	
 	// Update is called once per frame
 	void Update () {

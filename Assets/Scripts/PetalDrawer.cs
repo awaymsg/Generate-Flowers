@@ -13,8 +13,9 @@ public class PetalDrawer : MonoBehaviour {
     Mesh Mesh;
     MeshRenderer Rendererer;
     Color FlowerColor;
-    FlowerStats theflower;
+    FlowerStats flowerstats = new FlowerStats();
     float MoveZ;
+    float xSize;
     float MaxSize;
     float XFactor;
     float YFactor;
@@ -23,10 +24,8 @@ public class PetalDrawer : MonoBehaviour {
     Vector3[] Vertices;
     int[] Triangles;
 
-    public enum FlowerType { triFlower, bulbFlower, roundFlower }
     enum LifeCycle { bulbgrow, flowering, fruiting, dying }
     LifeCycle lifec;
-    FlowerType flower;
 
     void Awake()
     {
@@ -44,6 +43,7 @@ public class PetalDrawer : MonoBehaviour {
     {
         var rand = new System.Random(Randomseed);
         MaxSize = (float)rand.NextDouble() * 0.8f + 0.5f;
+        flowerstats.size = MaxSize;
         MakeMeshData();
         DrawPetal();
         //MakeInvertMesh(Vertices, Triangles);
@@ -58,13 +58,13 @@ public class PetalDrawer : MonoBehaviour {
         float wideth = (float)rand.NextDouble() * 0.3f + 0.2f;
         if (randnum < 0.33)
         {
-            flower = FlowerType.triFlower;
+            flowerstats.flowertype = FlowerStats.FlowerType.triFlower;
             Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(0, 1 * YFactor, 0 - ZFactor) * Size, new Vector3(1 * XFactor, 1 * YFactor, -0.2f -ZFactor) * Size,
                 new Vector3(0, 0, 0) * Size, new Vector3(0, 1 * YFactor, 0 - ZFactor) * Size, new Vector3(1 * XFactor, 1 * YFactor, -0.2f - ZFactor) * Size };
             Triangles = new int[] { 0, 1, 2, 3, 5, 4 };
         } else if (randnum >= 0.33f && randnum < 0.66f)
         {
-            flower = FlowerType.bulbFlower;
+            flowerstats.flowertype = FlowerStats.FlowerType.bulbFlower;
             Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(-wideth * XFactor, 0.5f * YFactor, 0 - ZFactor) * Size,
                 new Vector3(wideth * XFactor, 0.5f * YFactor, -0.2f - ZFactor) * Size, new Vector3(0, 1 * YFactor, MoveZ - ZFactor) * Size,
                 new Vector3(0, 0, 0) * Size, new Vector3(-wideth * XFactor, 0.5f * YFactor, 0 - ZFactor) * Size,
@@ -72,11 +72,12 @@ public class PetalDrawer : MonoBehaviour {
             Triangles = new int[] { 0, 1, 2, 2, 1, 3, 3, 5, 4, 4, 6, 3 };
         } else if (randnum >= 0.66f)
         {
-            flower = FlowerType.roundFlower;
+            flowerstats.flowertype = FlowerStats.FlowerType.roundFlower;
             Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(-wideth * XFactor, 0.5f * YFactor, 0 - ZFactor) * Size, new Vector3(wideth * XFactor, 0.5f * YFactor, -0.2f - ZFactor) * Size,
                 new Vector3(0, 0, 0) * Size, new Vector3(-wideth * XFactor, 0.5f * YFactor, 0 - ZFactor) * Size, new Vector3(wideth * XFactor, 0.5f * YFactor, -0.2f - ZFactor) * Size };
             Triangles = new int[] { 0, 1, 2, 3, 5, 4 };
         }
+        //theflower.flowertype = flower;
     }
 
     void DrawPetal()
@@ -128,7 +129,8 @@ public class PetalDrawer : MonoBehaviour {
         {
             PetalColor.color = PrettyColors[7] + Color.white * whiteoffset; //+ Color.black * blackoffset;
         }
-        FlowerColor = PetalColor.color;
+        //FlowerColor = PetalColor.color;
+        flowerstats.flowercolor = PetalColor.color;
     }
 
     void MakeInvertMesh (Vector3[] vertices, int[] triangles)
@@ -157,14 +159,15 @@ public class PetalDrawer : MonoBehaviour {
             if (YFactor <= 1)
                 YFactor += 0.1f * Time.deltaTime;
             if (ZFactor >= 0)
-                ZFactor -= 0.1f * Time.deltaTime;
+                ZFactor -= 0.1f * Time.deltaTime * ZFactor;
+            Size = Size * 3 * GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().sample[4] + 1;
         }
-        if (XFactor >= 1 && YFactor >= 1 && ZFactor <= 0)
+        if (XFactor >= 1 && YFactor >= 1 && ZFactor <= 0.1)
             Lifespan -= Time.deltaTime;
         if (Lifespan < 0)
         {
             lifec = LifeCycle.fruiting;
-            transform.parent.GetComponent<CenterPointScript>().Size = MaxSize * 0.25f;
+            transform.parent.GetComponent<CenterPointScript>().GetFlowerStats(flowerstats);
             transform.parent.GetComponent<CenterPointScript>().FruitingChange = true;
         }
         if (lifec == LifeCycle.fruiting)
@@ -180,5 +183,6 @@ public class PetalDrawer : MonoBehaviour {
             Destroy(transform.parent.gameObject);
         MakeMeshData();
         DrawPetal();
+        //Debug.Log(theflower);
 	}
 }

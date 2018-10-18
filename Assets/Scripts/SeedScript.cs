@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SeedScript : MonoBehaviour {
-    public float Size;
-
+    float Size;
+    Color FlowerColor;
+    FlowerStats flowerstats = new FlowerStats();
     // Use this for initialization
     private void Awake()
     {
@@ -13,6 +14,14 @@ public class SeedScript : MonoBehaviour {
 
     void Start () {
         //Debug.Log(Size);
+        Size = flowerstats.size * 0.25f;
+        Debug.Log(flowerstats.flowercolor);
+    }
+
+    public void GetSeedParentStats(FlowerStats flowerstatz)
+    {
+        flowerstats = flowerstatz;
+        //Debug.Log(flower);
     }
 	
 	// Update is called once per frame
@@ -22,11 +31,4 @@ public class SeedScript : MonoBehaviour {
             transform.localScale += new Vector3(1,1,1) * 0.05f * Time.deltaTime;
         }
 	}
-}
-
-public class FlowerStats
-{
-    public PetalDrawer.FlowerType flowertype;
-    public Color flowercolor;
-    public float size;
 }

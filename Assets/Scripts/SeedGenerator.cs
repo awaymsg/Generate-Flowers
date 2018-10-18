@@ -6,11 +6,10 @@ public class SeedGenerator : MonoBehaviour {
     public GameObject Seed;
 
     // Use this for initialization
-    public void GenerateSeed(Transform centerpoint, float size)
+    public void GenerateSeed(Transform centerpoint, FlowerStats flowerstatz)
     {
-        Debug.Log(size);
         GameObject seed = Instantiate(Seed, centerpoint.position, Quaternion.identity, centerpoint);
-        seed.GetComponent<SeedScript>().Size = size;
+        seed.GetComponent<SeedScript>().GetSeedParentStats(flowerstatz);
     }
 
     void Start () {
