@@ -6,7 +6,9 @@ public class CorollaGenerator : MonoBehaviour {
 
     public GameObject CenterPoint;
     public GameObject Petal;
+    List<GameObject> Flowers = new List<GameObject>();
     bool StopGeneration;
+    bool PositionOK;
     int PetalNum;
 
 	// Use this for initialization
@@ -17,18 +19,32 @@ public class CorollaGenerator : MonoBehaviour {
 
     IEnumerator GenerateCorolla(int corollanum)
     {
+        int MaxFlower = 10;
+        int i = 0;
         while (!StopGeneration)
-        { 
+        {
+            PositionOK = false;
             PetalNum = Random.Range(4, 10);
             StartCoroutine(GeneratePetal(PetalNum));
             yield return new WaitForSeconds(0.3f);
+            i++;
+            if (i == MaxFlower)
+            {
+                StopGeneration = true;
+            }
         }
     }
 
     IEnumerator GeneratePetal(int petalnum)
     {
-        Vector3 position = new Vector3(Random.Range(-10, 10), Random.Range(1, 15), Random.Range(-7, 10));
+        Vector3 position = new Vector3(Random.Range(-5, 5), Random.Range(5, 9), Random.Range(-5, 5));
         GameObject corolla = Instantiate(CenterPoint, position, Quaternion.identity);
+        Flowers.Add(corolla);
+        while (!PositionOK)
+        {
+            CheckFlowerPosition();
+            Debug.Log(PositionOK);
+        }
         int rand = (int)(Random.value * 500);
         float anglestep = 360f / petalnum;
         float angle = 0;
@@ -38,6 +54,31 @@ public class CorollaGenerator : MonoBehaviour {
             petal.GetComponent<PetalDrawer>().Randomseed = rand;
             angle += anglestep;
             yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    void CheckFlowerPosition()
+    {
+        int positionchange = 0;
+        Debug.Log(Flowers.Count);
+        if (Flowers.Count > 1)
+        {
+            PositionOK = false;
+            for (int i = 0; i < (Flowers.Count - 1); i++)
+            {
+                if (Flowers[Flowers.Count-1].transform.position.x - Flowers[i].transform.position.x < 1f && Flowers[Flowers.Count-1].transform.position.x - Flowers[i].transform.position.x > -1f)
+                {
+                    positionchange++;
+                }
+            }
+        }
+        if (positionchange == 0)
+        {
+            PositionOK = true;
+        }
+        else
+        {
+            Flowers[Flowers.Count-1].transform.position = new Vector3(Random.Range(-8, 8), Random.Range(6, 8), Random.Range(-5, 5));
         }
     }
 	

@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4831030147117206}
   - component: {fileID: 114273235692260944}
+  - component: {fileID: 54058596150185068}
   m_Layer: 0
   m_Name: Centerpoint
   m_TagString: Untagged
@@ -40,6 +41,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54058596150185068
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1212557303965386}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.01
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &114273235692260944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,5 +67,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf84f590422cdd54984c10902ee4744e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Size: 0
   SeedGeneratorr: {fileID: 1467671389465580, guid: 1a52d7de479c4db4f8967407f253a7b4,
     type: 2}

@@ -21,6 +21,7 @@ public class PetalDrawer : MonoBehaviour {
     float YFactor;
     float ZFactor;
     float Lifespan;
+    float AudioRand;
     Vector3[] Vertices;
     int[] Triangles;
 
@@ -43,6 +44,7 @@ public class PetalDrawer : MonoBehaviour {
     {
         var rand = new System.Random(Randomseed);
         MaxSize = (float)rand.NextDouble() * 0.8f + 0.5f;
+        AudioRand = (float)rand.NextDouble();
         flowerstats.size = MaxSize;
         MakeMeshData();
         DrawPetal();
@@ -160,7 +162,7 @@ public class PetalDrawer : MonoBehaviour {
                 YFactor += 0.1f * Time.deltaTime;
             if (ZFactor >= 0)
                 ZFactor -= 0.1f * Time.deltaTime * ZFactor;
-            Size = Size * 3 * GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().sample[4] + 1;
+            Size = AudioEffector(AudioRand) * 3 + 1;
         }
         if (XFactor >= 1 && YFactor >= 1 && ZFactor <= 0.1)
             Lifespan -= Time.deltaTime;
@@ -185,4 +187,42 @@ public class PetalDrawer : MonoBehaviour {
         DrawPetal();
         //Debug.Log(theflower);
 	}
+
+    float AudioEffector(float randnum)
+    {
+        float audiovalue = 0;
+        if (randnum < 0.125f)
+        {
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[0];
+        }
+        else if (randnum >= 0.125f && randnum < 0.25f)
+        {
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[1];
+        }
+        else if (randnum >= 0.25f && randnum < 0.375f)
+        {
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[2];
+        }
+        else if (randnum >= 0.375f && randnum < 0.5f)
+        {
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[3];
+        }
+        else if (randnum >= 0.5f && randnum < 0.625f)
+        {
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[4];
+        }
+        else if (randnum >= 0.625f && randnum < 0.75f)
+        {
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[5];
+        }
+        else if (randnum >= 0.75f && randnum < 0.875f)
+        {
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[6];
+        }
+        else if (randnum >= 0.875f)
+        {
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[7];
+        }
+        return audiovalue;
+    }
 }
