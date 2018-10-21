@@ -264,6 +264,10 @@ Prefab:
       propertyPath: m_Name
       value: CorollaGenerator
       objectReference: {fileID: 0}
+    - target: {fileID: 1116582310672972, guid: 20675b7a356b71d4c826a6e06911ca5a, type: 2}
+      propertyPath: m_TagString
+      value: CorollaGenerator
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20675b7a356b71d4c826a6e06911ca5a, type: 2}
   m_IsPrefabAsset: 0
@@ -885,6 +889,15 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  freqband:
   - 0
   - 0
   - 0

@@ -181,12 +181,26 @@ public class PetalDrawer : MonoBehaviour {
             if (ZFactor >= -1)
                 ZFactor -= 0.1f * Time.deltaTime;
         }
-        if (lifec == LifeCycle.dying && Size <= 0.05f)
-            Destroy(transform.parent.gameObject);
+        //if (lifec == LifeCycle.dying && Size <= 0.05f)
+            //Destroy(transform.parent.gameObject);
         MakeMeshData();
         DrawPetal();
         //Debug.Log(theflower);
 	}
+
+    public IEnumerator ShrinkNDestroy()
+    {
+        Debug.Log("shrinkndestorying");
+        while (Size > 0.02f)
+        {
+            Size -= Time.deltaTime;
+        }
+        if (Size < 0.03f)
+        {
+            Destroy(gameObject);
+        }
+        yield return new WaitForSeconds(0f);
+    }
 
     float AudioEffector(float randnum)
     {

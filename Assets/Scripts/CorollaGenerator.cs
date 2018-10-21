@@ -25,7 +25,7 @@ public class CorollaGenerator : MonoBehaviour {
         {
             PositionOK = false;
             PetalNum = Random.Range(4, 10);
-            StartCoroutine(GeneratePetal(PetalNum));
+            StartCoroutine(GeneratePetal(PetalNum, null, null));
             yield return new WaitForSeconds(0.3f);
             i++;
             if (i == MaxFlower)
@@ -35,15 +35,22 @@ public class CorollaGenerator : MonoBehaviour {
         }
     }
 
-    IEnumerator GeneratePetal(int petalnum)
+    public IEnumerator GeneratePetal(int petalnum, GameObject centerpoint, FlowerStats flower)
     {
-        Vector3 position = new Vector3(Random.Range(-5, 5), Random.Range(5, 9), Random.Range(-5, 5));
-        GameObject corolla = Instantiate(CenterPoint, position, Quaternion.identity);
-        Flowers.Add(corolla);
-        while (!PositionOK)
+        GameObject corolla = new GameObject();
+        if (centerpoint == null)
         {
-            CheckFlowerPosition();
-            Debug.Log(PositionOK);
+            Vector3 position = new Vector3(Random.Range(-5, 5), Random.Range(5, 9), Random.Range(-5, 5));
+            corolla = Instantiate(CenterPoint, position, Quaternion.identity);
+            Flowers.Add(corolla);
+            while (!PositionOK)
+            {
+                CheckFlowerPosition();
+                Debug.Log(PositionOK);
+            }
+        } else
+        {
+            corolla = centerpoint;
         }
         int rand = (int)(Random.value * 500);
         float anglestep = 360f / petalnum;
@@ -66,10 +73,18 @@ public class CorollaGenerator : MonoBehaviour {
             PositionOK = false;
             for (int i = 0; i < (Flowers.Count - 1); i++)
             {
-                if (Flowers[Flowers.Count-1].transform.position.x - Flowers[i].transform.position.x < 1f && Flowers[Flowers.Count-1].transform.position.x - Flowers[i].transform.position.x > -1f)
+                if (Flowers[Flowers.Count - 1].transform.position.x - Flowers[i].transform.position.x < 1f && Flowers[Flowers.Count - 1].transform.position.x - Flowers[i].transform.position.x > -1f)
                 {
                     positionchange++;
                 }
+                //if (Flowers[Flowers.Count - 1].transform.position.y - Flowers[i].transform.position.y < 1f && Flowers[Flowers.Count - 1].transform.position.y - Flowers[i].transform.position.y > -1f)
+                //{
+                //    positionchange++;
+                //}
+                //if (Flowers[Flowers.Count - 1].transform.position.z - Flowers[i].transform.position.z < 1f && Flowers[Flowers.Count - 1].transform.position.z - Flowers[i].transform.position.z > -1f)
+                //{
+                //    positionchange++;
+                //}
             }
         }
         if (positionchange == 0)

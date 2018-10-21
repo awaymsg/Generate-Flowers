@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class CenterPointScript : MonoBehaviour {
 
-    bool IsFruiting;
+    [HideInInspector]
+    public bool IsFruiting;
     FlowerStats flowerstats = new FlowerStats();
     Color FlowerColor;
+    [HideInInspector]
     public float Size;
     [SerializeField] GameObject SeedGeneratorr;
 
