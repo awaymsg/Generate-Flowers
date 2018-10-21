@@ -7,6 +7,7 @@ TagManager:
   - AudioManager
   - CorollaGenerator
   - Petal
+  - Centerpoint
   layers:
   - Default
   - TransparentFX

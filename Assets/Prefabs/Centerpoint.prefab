@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 54058596150185068}
   m_Layer: 0
   m_Name: Centerpoint
-  m_TagString: Untagged
+  m_TagString: Centerpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf84f590422cdd54984c10902ee4744e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsFruiting: 0
   Size: 0
   SeedGeneratorr: {fileID: 1467671389465580, guid: 1a52d7de479c4db4f8967407f253a7b4,
     type: 2}

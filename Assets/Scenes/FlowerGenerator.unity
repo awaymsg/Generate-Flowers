@@ -949,7 +949,7 @@ Prefab:
         type: 2}
       propertyPath: Sounds.Array.data[0].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 69d2f819d6565df44bdecaf240b9f23e, type: 3}
+      objectReference: {fileID: 8300000, guid: e27dfab60c8604a4aaa748b9267946bd, type: 3}
     - target: {fileID: 114281489377289800, guid: 9b6e388ecd5c6df449a9449a85d805cb,
         type: 2}
       propertyPath: Sounds.Array.data[0].volume

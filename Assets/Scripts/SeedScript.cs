@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SeedScript : MonoBehaviour {
@@ -37,7 +38,12 @@ public class SeedScript : MonoBehaviour {
 	void Update () {
         GrowSeed();
         DormantTime -= Time.deltaTime;
-        if (DormantTime < 0 && !GrowNew)
+        CheckPosition();
+        if (ParentBody.velocity.magnitude > 2f)
+        {
+            ParentBody.velocity = ParentBody.velocity * 0.9f;
+        }
+        if (DormantTime < 2 && !GrowNew)
         {
             PetalDrawer[] petals;
             petals = transform.parent.gameObject.GetComponentsInChildren<PetalDrawer>();
@@ -46,17 +52,34 @@ public class SeedScript : MonoBehaviour {
                 //Debug.Log("trying to call petaldrawer");
                 if (petal != null)
                 {
-                    StartCoroutine(petal.ShrinkNDestroy());
+                    petal.lifec = PetalDrawer.LifeCycle.dying;
                 }
             }
-            int PetalNum = Random.Range(4, 10);
-            Debug.Log(PetalNum + " " + gameObject.name);
-            StartCoroutine(GameObject.FindGameObjectWithTag("CorollaGenerator").GetComponent<CorollaGenerator>().GeneratePetal(PetalNum, transform.parent.gameObject, flowerstats));
-            GrowNew = true;
+            if (DormantTime < 0)
+            {
+                int PetalNum = Random.Range(4, 10);
+                Debug.Log(PetalNum + " " + gameObject.name);
+                StartCoroutine(GameObject.FindGameObjectWithTag("CorollaGenerator").GetComponent<CorollaGenerator>().GeneratePetal(PetalNum, transform.parent.gameObject, flowerstats));
+                GrowNew = true;
+            }
         }
         if (GrowNew)
             ShrinkSeed();
 	}
+
+    void CheckPosition()
+    {
+        GameObject[] flowers = GameObject.FindGameObjectsWithTag("Centerpoint");
+        List<GameObject> flowerlist = flowers.ToList();
+        flowerlist.Remove(gameObject);
+        foreach (GameObject flower in flowerlist)
+        {
+            if (Vector3.Distance(transform.parent.position, flower.transform.position) < 3f)
+            {
+                ParentBody.AddForce((transform.parent.position - flower.transform.position) * Time.deltaTime);
+            }
+        }
+    }
 
     void GrowSeed()
     {
@@ -80,8 +103,8 @@ public class SeedScript : MonoBehaviour {
         transform.localScale -= new Vector3(1, 1, 1) * 0.2f * Time.deltaTime;
         if (transform.localScale.x < 0.03f)
         {
-            transform.parent.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            //transform.parent.gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            ParentBody.velocity = Vector3.zero;
+            ParentBody.angularVelocity = Vector3.zero;
             Destroy(gameObject);
         }
     }

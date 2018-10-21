@@ -25,8 +25,8 @@ public class PetalDrawer : MonoBehaviour {
     Vector3[] Vertices;
     int[] Triangles;
 
-    enum LifeCycle { bulbgrow, flowering, fruiting, dying }
-    LifeCycle lifec;
+    public enum LifeCycle { bulbgrow, flowering, fruiting, dying }
+    public LifeCycle lifec;
 
     void Awake()
     {
@@ -166,7 +166,7 @@ public class PetalDrawer : MonoBehaviour {
         }
         if (XFactor >= 1 && YFactor >= 1 && ZFactor <= 0.1)
             Lifespan -= Time.deltaTime;
-        if (Lifespan < 0)
+        if (Lifespan < 0 && lifec == LifeCycle.flowering)
         {
             lifec = LifeCycle.fruiting;
             transform.parent.GetComponent<CenterPointScript>().GetFlowerStats(flowerstats);
@@ -181,25 +181,28 @@ public class PetalDrawer : MonoBehaviour {
             if (ZFactor >= -1)
                 ZFactor -= 0.1f * Time.deltaTime;
         }
-        //if (lifec == LifeCycle.dying && Size <= 0.05f)
-            //Destroy(transform.parent.gameObject);
+        if (lifec == LifeCycle.dying)
+        {
+            Debug.Log("ShrinkNDestroy");
+            ShrinkNDestroy();
+        }
         MakeMeshData();
         DrawPetal();
         //Debug.Log(theflower);
 	}
 
-    public IEnumerator ShrinkNDestroy()
+    public void ShrinkNDestroy()
     {
         Debug.Log("shrinkndestorying");
-        while (Size > 0.02f)
-        {
-            Size -= Time.deltaTime;
-        }
+        //while (Size > 0.02f)
+        //{
+            Size -= 0.5f * Time.deltaTime;
+        //}
         if (Size < 0.03f)
         {
             Destroy(gameObject);
         }
-        yield return new WaitForSeconds(0f);
+        //yield return new WaitForSeconds(0f);
     }
 
     float AudioEffector(float randnum)
