@@ -7,23 +7,44 @@ public class AudioAnalyzer : MonoBehaviour {
     public AudioSource source;
     public float[] sample = new float[512];
     public float[] freqband = new float[8];
+    public float[] bandbuffer = new float[8];
+    float[] bufferdecrease = new float[8];
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (source != null)
+        {
             GetSpectrum();
-        if (source != null)
             MakeFreqBands();
+            GetBuffer();
+        }
 	}
 
     void GetSpectrum ()
     {
         source.GetSpectrumData(sample, 0, FFTWindow.Blackman);
+    }
+
+    void GetBuffer ()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (freqband[i] > bandbuffer[i])
+            {
+                bandbuffer[i] = freqband[i];
+                bufferdecrease[i] = 0.005f;
+            }
+            if (freqband[i] < bandbuffer[i])
+            {
+                bandbuffer[i] -= bufferdecrease[i];
+                bufferdecrease[i] *= 1.2f;
+            }
+        }
     }
 
     void MakeFreqBands ()

@@ -6,6 +6,7 @@ public class CenterPointScript : MonoBehaviour {
 
     [HideInInspector]
     public bool IsFruiting;
+    public int SeedNum;
     FlowerStats flowerstats = new FlowerStats();
     Color FlowerColor;
     [HideInInspector]
@@ -23,7 +24,7 @@ public class CenterPointScript : MonoBehaviour {
             if (value != IsFruiting)
             {
                 IsFruiting = true;
-                SeedGeneratorr.GetComponent<SeedGenerator>().GenerateSeed(transform, flowerstats);
+                SeedGeneratorr.GetComponent<SeedGenerator>().GenerateSeed(gameObject, flowerstats, SeedNum);
             }
         }
     }

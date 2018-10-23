@@ -5,6 +5,7 @@ using UnityEngine;
 public class PetalDrawer : MonoBehaviour {
 
     public float Size;
+    public bool IsNew = true;
     public Material PetalMaterial;
     public int Randomseed;
     public int Geometry;
@@ -22,6 +23,7 @@ public class PetalDrawer : MonoBehaviour {
     float ZFactor;
     float Lifespan;
     float AudioRand;
+    int SeedNum;
     Vector3[] Vertices;
     int[] Triangles;
 
@@ -43,38 +45,63 @@ public class PetalDrawer : MonoBehaviour {
     private void Start()
     {
         var rand = new System.Random(Randomseed);
-        MaxSize = (float)rand.NextDouble() * 0.8f + 0.5f;
+        if (IsNew)
+        {
+            MaxSize = (float)rand.NextDouble() * 0.8f + 0.5f;
+            flowerstats.size = MaxSize;
+            GetFlowerType();
+            DrawPetal();
+            //MakeInvertMesh(Vertices, Triangles);
+            MakeRandomColor(Randomseed);
+        }
         AudioRand = (float)rand.NextDouble();
-        flowerstats.size = MaxSize;
-        MakeMeshData();
-        DrawPetal();
-        //MakeInvertMesh(Vertices, Triangles);
-        SetColor(Randomseed);
+        MakeMeshData(flowerstats.flowertype);
+        SetColor();
     }
 
-    void MakeMeshData()
+    public void GetFlowerStats (FlowerStats flowerstatz)
+    {
+        IsNew = false;
+        flowerstats = flowerstatz;
+    }
+
+    void GetFlowerType()
     {
         var rand = new System.Random(Randomseed);
         double randnum = rand.NextDouble();
-        MoveZ = (float)(rand.NextDouble());
-        float wideth = (float)rand.NextDouble() * 0.3f + 0.2f;
         if (randnum < 0.33)
         {
             flowerstats.flowertype = FlowerStats.FlowerType.triFlower;
+        }
+        else if (randnum >= 0.33f && randnum < 0.66f)
+        {
+            flowerstats.flowertype = FlowerStats.FlowerType.bulbFlower;
+        }
+        else if (randnum >= 0.66f)
+        {
+            flowerstats.flowertype = FlowerStats.FlowerType.roundFlower;
+        }
+    }
+
+    void MakeMeshData(FlowerStats.FlowerType flowertype)
+    {
+        var rand = new System.Random(Randomseed);
+        MoveZ = (float)(rand.NextDouble());
+        float wideth = (float)rand.NextDouble() * 0.3f + 0.2f;
+        if (flowertype == FlowerStats.FlowerType.triFlower)
+        {
             Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(0, 1 * YFactor, 0 - ZFactor) * Size, new Vector3(1 * XFactor, 1 * YFactor, -0.2f -ZFactor) * Size,
                 new Vector3(0, 0, 0) * Size, new Vector3(0, 1 * YFactor, 0 - ZFactor) * Size, new Vector3(1 * XFactor, 1 * YFactor, -0.2f - ZFactor) * Size };
             Triangles = new int[] { 0, 1, 2, 3, 5, 4 };
-        } else if (randnum >= 0.33f && randnum < 0.66f)
+        } else if (flowertype == FlowerStats.FlowerType.bulbFlower)
         {
-            flowerstats.flowertype = FlowerStats.FlowerType.bulbFlower;
             Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(-wideth * XFactor, 0.5f * YFactor, 0 - ZFactor) * Size,
                 new Vector3(wideth * XFactor, 0.5f * YFactor, -0.2f - ZFactor) * Size, new Vector3(0, 1 * YFactor, MoveZ - ZFactor) * Size,
                 new Vector3(0, 0, 0) * Size, new Vector3(-wideth * XFactor, 0.5f * YFactor, 0 - ZFactor) * Size,
                 new Vector3(wideth * XFactor, 0.5f * YFactor, -0.2f - ZFactor) * Size, new Vector3(0, 1 * YFactor, MoveZ - ZFactor) * Size };
             Triangles = new int[] { 0, 1, 2, 2, 1, 3, 3, 5, 4, 4, 6, 3 };
-        } else if (randnum >= 0.66f)
+        } else if (flowertype == FlowerStats.FlowerType.roundFlower)
         {
-            flowerstats.flowertype = FlowerStats.FlowerType.roundFlower;
             Vertices = new Vector3[] { new Vector3(0, 0, 0) * Size, new Vector3(-wideth * XFactor, 0.5f * YFactor, 0 - ZFactor) * Size, new Vector3(wideth * XFactor, 0.5f * YFactor, -0.2f - ZFactor) * Size,
                 new Vector3(0, 0, 0) * Size, new Vector3(-wideth * XFactor, 0.5f * YFactor, 0 - ZFactor) * Size, new Vector3(wideth * XFactor, 0.5f * YFactor, -0.2f - ZFactor) * Size };
             Triangles = new int[] { 0, 1, 2, 3, 5, 4 };
@@ -90,49 +117,52 @@ public class PetalDrawer : MonoBehaviour {
         Mesh.RecalculateNormals();
     }
 
-    void SetColor(int randomseed)
+    void MakeRandomColor(int randomseed)
     {
         var rand = new System.Random(randomseed);
         double randnum = rand.NextDouble();
         float whiteoffset = (float)rand.NextDouble() / 3;
         float blackoffset = (float)rand.NextDouble() / 3;
         //Debug.Log(randnum);
-        Material PetalColor = new Material(PetalMaterial);
-        Rendererer.material = PetalColor;
         if (randnum < 0.125f)
         {
-            PetalColor.color = PrettyColors[0] + Color.white * whiteoffset; //+ Color.black * blackoffset;
+            flowerstats.flowercolor = PrettyColors[0] + Color.white * whiteoffset; //+ Color.black * blackoffset;
         }
         else if (randnum >= 0.125f && randnum < 0.25f)
         {
-            PetalColor.color = PrettyColors[1] + Color.white * whiteoffset; //+ Color.black * blackoffset;
+            flowerstats.flowercolor = PrettyColors[1] + Color.white * whiteoffset; //+ Color.black * blackoffset;
         }
         else if (randnum >= 0.25f && randnum < 0.375f)
         {
-            PetalColor.color = PrettyColors[2] + Color.white * whiteoffset; //+ Color.black * blackoffset;
+            flowerstats.flowercolor = PrettyColors[2] + Color.white * whiteoffset; //+ Color.black * blackoffset;
         }
         else if (randnum >= 0.375f && randnum < 0.5f)
         {
-            PetalColor.color = PrettyColors[3] + Color.white * whiteoffset; //+ Color.black * blackoffset;
+            flowerstats.flowercolor = PrettyColors[3] + Color.white * whiteoffset; //+ Color.black * blackoffset;
         }
         else if (randnum >= 0.5f && randnum < 0.625f)
         {
-            PetalColor.color = PrettyColors[4] + Color.white * whiteoffset; //+ Color.black * blackoffset;
+            flowerstats.flowercolor = PrettyColors[4] + Color.white * whiteoffset; //+ Color.black * blackoffset;
         }
         else if (randnum >= 0.625f && randnum < 0.75f)
         {
-            PetalColor.color = PrettyColors[5] + Color.white * whiteoffset; //+ Color.black * blackoffset;
+            flowerstats.flowercolor = PrettyColors[5] + Color.white * whiteoffset; //+ Color.black * blackoffset;
         }
         else if (randnum >= 0.75f && randnum < 0.875f)
         {
-            PetalColor.color = PrettyColors[6] + Color.white * whiteoffset; //+ Color.black * blackoffset;
+            flowerstats.flowercolor = PrettyColors[6] + Color.white * whiteoffset; //+ Color.black * blackoffset;
         }
         else if (randnum >= 0.875f)
         {
-            PetalColor.color = PrettyColors[7] + Color.white * whiteoffset; //+ Color.black * blackoffset;
+            flowerstats.flowercolor = PrettyColors[7] + Color.white * whiteoffset; //+ Color.black * blackoffset;
         }
-        //FlowerColor = PetalColor.color;
-        flowerstats.flowercolor = PetalColor.color;
+    }
+
+    void SetColor()
+    {
+        Material PetalColor = new Material(PetalMaterial);
+        Rendererer.material = PetalColor;
+        PetalColor.color = flowerstats.flowercolor;
     }
 
     void MakeInvertMesh (Vector3[] vertices, int[] triangles)
@@ -142,6 +172,11 @@ public class PetalDrawer : MonoBehaviour {
         Vector3[] normalz = Mesh.normals;
         //Debug.Log(v);
         //Debug.Log(t);
+    }
+
+    int GenerateSeedNum ()
+    {
+        return Random.Range(0, 3);
     }
 
     // Update is called once per frame
@@ -169,6 +204,7 @@ public class PetalDrawer : MonoBehaviour {
         if (Lifespan < 0 && lifec == LifeCycle.flowering)
         {
             lifec = LifeCycle.fruiting;
+            transform.parent.GetComponent<CenterPointScript>().SeedNum = GenerateSeedNum();
             transform.parent.GetComponent<CenterPointScript>().GetFlowerStats(flowerstats);
             transform.parent.GetComponent<CenterPointScript>().FruitingChange = true;
         }
@@ -186,7 +222,7 @@ public class PetalDrawer : MonoBehaviour {
             Debug.Log("ShrinkNDestroy");
             ShrinkNDestroy();
         }
-        MakeMeshData();
+        MakeMeshData(flowerstats.flowertype);
         DrawPetal();
         //Debug.Log(theflower);
 	}
@@ -210,35 +246,35 @@ public class PetalDrawer : MonoBehaviour {
         float audiovalue = 0;
         if (randnum < 0.125f)
         {
-            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[0];
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().bandbuffer[0];
         }
         else if (randnum >= 0.125f && randnum < 0.25f)
         {
-            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[1];
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().bandbuffer[1];
         }
         else if (randnum >= 0.25f && randnum < 0.375f)
         {
-            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[2];
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().bandbuffer[2];
         }
         else if (randnum >= 0.375f && randnum < 0.5f)
         {
-            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[3];
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().bandbuffer[3];
         }
         else if (randnum >= 0.5f && randnum < 0.625f)
         {
-            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[4];
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().bandbuffer[4];
         }
         else if (randnum >= 0.625f && randnum < 0.75f)
         {
-            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[5];
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().bandbuffer[5];
         }
         else if (randnum >= 0.75f && randnum < 0.875f)
         {
-            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[6];
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().bandbuffer[6];
         }
         else if (randnum >= 0.875f)
         {
-            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().freqband[7];
+            audiovalue = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioAnalyzer>().bandbuffer[7];
         }
         return audiovalue;
     }

@@ -218,6 +218,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114927136710019066, guid: 1a52d7de479c4db4f8967407f253a7b4,
+        type: 2}
+      propertyPath: CenterPoint
+      value: 
+      objectReference: {fileID: 1212557303965386, guid: 627ea8eb7bdfb3546bdec813008d6f2a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a52d7de479c4db4f8967407f253a7b4, type: 2}
   m_IsPrefabAsset: 0
@@ -898,6 +904,15 @@ MonoBehaviour:
   - 0
   - 0
   freqband:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  bandbuffer:
   - 0
   - 0
   - 0

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CorollaGenerator : MonoBehaviour {
 
-    public GameObject CenterPoint;
-    public GameObject Petal;
+    [SerializeField] GameObject CenterPoint;
+    [SerializeField] GameObject Petal;
     List<GameObject> Flowers = new List<GameObject>();
     bool StopGeneration;
     bool PositionOK;
@@ -56,6 +56,10 @@ public class CorollaGenerator : MonoBehaviour {
             GameObject petal = Instantiate(Petal, centerpoint.transform.position, Quaternion.Euler(0, 0, angle), centerpoint.transform);
             petal.GetComponent<PetalDrawer>().Randomseed = rand;
             angle += anglestep;
+            if (flower != null)
+            {
+                petal.GetComponent<PetalDrawer>().GetFlowerStats(flower);
+            }
             yield return new WaitForSeconds(0.05f);
         }
     }

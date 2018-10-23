@@ -45,16 +45,7 @@ public class SeedScript : MonoBehaviour {
         }
         if (DormantTime < 2 && !GrowNew)
         {
-            PetalDrawer[] petals;
-            petals = transform.parent.gameObject.GetComponentsInChildren<PetalDrawer>();
-            foreach (PetalDrawer petal in petals)
-            {
-                //Debug.Log("trying to call petaldrawer");
-                if (petal != null)
-                {
-                    petal.lifec = PetalDrawer.LifeCycle.dying;
-                }
-            }
+            KillPetals();
             if (DormantTime < 0)
             {
                 int PetalNum = Random.Range(4, 10);
@@ -66,6 +57,20 @@ public class SeedScript : MonoBehaviour {
         if (GrowNew)
             ShrinkSeed();
 	}
+
+    void KillPetals()
+    {
+        PetalDrawer[] petals;
+        petals = transform.parent.gameObject.GetComponentsInChildren<PetalDrawer>();
+        foreach (PetalDrawer petal in petals)
+        {
+            //Debug.Log("trying to call petaldrawer");
+            if (petal != null)
+            {
+                petal.lifec = PetalDrawer.LifeCycle.dying;
+            }
+        }
+    }
 
     void CheckPosition()
     {
