@@ -8,6 +8,7 @@ TagManager:
   - CorollaGenerator
   - Petal
   - Centerpoint
+  - SeedGenerator
   layers:
   - Default
   - TransparentFX

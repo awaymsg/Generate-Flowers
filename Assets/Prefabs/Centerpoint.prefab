@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4831030147117206}
-  - component: {fileID: 114273235692260944}
   - component: {fileID: 54058596150185068}
   m_Layer: 0
   m_Name: Centerpoint
@@ -56,18 +55,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114273235692260944
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1212557303965386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf84f590422cdd54984c10902ee4744e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsFruiting: 0
-  Size: 0
-  SeedGeneratorr: {fileID: 1467671389465580, guid: 1a52d7de479c4db4f8967407f253a7b4,
-    type: 2}

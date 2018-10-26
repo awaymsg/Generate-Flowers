@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TriFlower : AFlower {
-    
-	// Use this for initialization
+
     public override void Eat()
     {
         foreach (GameObject food in Foods)
@@ -40,6 +39,7 @@ public class TriFlower : AFlower {
         Foods = GameObject.FindObjectOfType<FoodManager>().Foods;
         RedFoodReq = 6f;
         YellowFoodReq = 2f;
+        IsFruiting = false;
     }
 	
 	// Update is called once per frame

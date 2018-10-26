@@ -104,7 +104,7 @@ public class SeedScript : MonoBehaviour {
 
     void ShrinkSeed()
     {
-        transform.parent.gameObject.GetComponent<CenterPointScript>().IsFruiting = false;
+        transform.parent.gameObject.GetComponent<AFlower>().IsFruiting = false;
         transform.localScale -= new Vector3(1, 1, 1) * 0.2f * Time.deltaTime;
         if (transform.localScale.x < 0.03f)
         {

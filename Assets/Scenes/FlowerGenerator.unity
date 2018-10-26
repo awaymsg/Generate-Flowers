@@ -120,6 +120,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4732644811230424, guid: d025333e47f45a44e8a95ce45cedfdde, type: 2}
       propertyPath: m_LocalPosition.x
       value: 7.990947
@@ -151,6 +156,130 @@ Prefab:
     - target: {fileID: 4732644811230424, guid: d025333e47f45a44e8a95ce45cedfdde, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[0].r
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[0].g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[0].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[1].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[1].g
+      value: 0.6745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[1].b
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[2].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[2].g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[2].b
+      value: 0.4745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[3].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[3].g
+      value: 0.46666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[3].b
+      value: 0.46666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[4].r
+      value: 0.5529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[4].g
+      value: 0.5882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[4].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[5].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[5].g
+      value: 0.8156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[5].b
+      value: 0.34509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[6].r
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[6].g
+      value: 0.49411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[6].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[7].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[7].g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114877036827040370, guid: d025333e47f45a44e8a95ce45cedfdde,
+        type: 2}
+      propertyPath: PrettyColors.Array.data[7].b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083585040585504, guid: d025333e47f45a44e8a95ce45cedfdde, type: 2}
+      propertyPath: m_TagString
+      value: SeedGenerator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d025333e47f45a44e8a95ce45cedfdde, type: 2}

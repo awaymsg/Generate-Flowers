@@ -5,7 +5,6 @@ using UnityEngine;
 public class RoundFlower : AFlower
 {
 
-    // Use this for initialization
     public override void Eat()
     {
         foreach (GameObject food in Foods)
@@ -44,6 +43,7 @@ public class RoundFlower : AFlower
         Foods = GameObject.FindObjectOfType<FoodManager>().Foods;
         BlueFoodReq = 3f;
         YellowFoodReq = 6f;
+        IsFruiting = false;
     }
 
     // Update is called once per frame
