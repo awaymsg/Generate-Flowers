@@ -14,6 +14,7 @@ public abstract class AFlower : MonoBehaviour {
     protected float RedEaten;
     protected float BlueEaten;
     protected float YellowEaten;
+    protected bool CanPropagate;
     public GameObject SeedGeneratorr;
 
     public bool FruitingChange
@@ -30,10 +31,37 @@ public abstract class AFlower : MonoBehaviour {
                 IsFruiting = true;
                 Debug.Log(gameObject);
                 Debug.Log(flowerstats);
+                if (EatenEnough() && CanPropagate)
+                {
+                    SeedNum = Random.Range(1, 4);
+                } else if (!EatenEnough() && CanPropagate)
+                {
+                    SeedNum = Random.Range(0, 1);
+                } else
+                {
+                    SeedNum = 0;
+                }
                 SeedGeneratorr.GetComponent<SeedGenerator>().GenerateSeed(gameObject, flowerstats, SeedNum);
             }
         }
     }
+
+    public void ResetFoodEaten()
+    {
+        RedEaten = 0;
+        BlueEaten = 0;
+        YellowEaten = 0;
+    }
+
+    public void CheckForChilren()
+    {
+        if (transform.childCount == 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public abstract void PullFood();
 
     public void GetFlowerStats(FlowerStats flowerstatz)
     {

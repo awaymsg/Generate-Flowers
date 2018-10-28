@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulbFlower : AFlower
-{
+public class BulbFlower : AFlower {
 
     public override void Eat()
     {
@@ -11,16 +10,29 @@ public class BulbFlower : AFlower
         {
             if (Vector3.Distance(transform.position, food.transform.position) < 2)
             {
-                if (food.GetComponent<IFood>().NutritionalValue == 1)
+                if (food.GetComponent<IFood>().NutritionType == 1 && BlueEaten <= BlueFoodReq)
                 {
-                    YellowEaten += 0.3f;
-                    food.GetComponent<IFood>().Diminish(0.3f);
+                    BlueEaten += 2f * Time.deltaTime;
+                    food.GetComponent<IFood>().Diminish(2f * Time.deltaTime);
                 }
-                else
-                if (food.GetComponent<IFood>().NutritionalValue == 0)
+                else if (food.GetComponent<IFood>().NutritionType == 0 && RedEaten <= RedFoodReq)
                 {
-                    RedEaten += 0.3f;
-                    food.GetComponent<IFood>().Diminish(0.3f);
+                    RedEaten += 2f * Time.deltaTime;
+                    food.GetComponent<IFood>().Diminish(2f * Time.deltaTime);
+                }
+            }
+        }
+    }
+
+    public override void PullFood()
+    {
+        foreach (GameObject food in FindObjectOfType<FoodManager>().Foods)
+        {
+            if (Vector3.Distance(food.transform.position, transform.position) <= flowerstats.foodpulldistance)
+            {
+                if (food.GetComponent<IFood>().NutritionType == 1 || food.GetComponent<IFood>().NutritionType == 0)
+                {
+                    food.GetComponent<Rigidbody>().AddForce((transform.position - food.transform.position) * flowerstats.foodpullfactor * Time.deltaTime);
                 }
             }
         }
@@ -28,7 +40,11 @@ public class BulbFlower : AFlower
 
     public override bool EatenEnough()
     {
-        if (RedFoodReq <= RedEaten && YellowFoodReq <= YellowEaten)
+        if (RedEaten >= RedFoodReq * 0.5f && BlueEaten >= BlueFoodReq * 0.5f)
+        {
+            CanPropagate = true;
+        }
+        if (RedFoodReq <= RedEaten && BlueFoodReq <= BlueEaten)
         {
             return true;
         }
@@ -40,7 +56,7 @@ public class BulbFlower : AFlower
 
     void Awake()
     {
-        Foods = GameObject.FindObjectOfType<FoodManager>().Foods;
+        Foods = FindObjectOfType<FoodManager>().Foods;
         RedFoodReq = 1f;
         BlueFoodReq = 7f;
         IsFruiting = false;
@@ -49,7 +65,9 @@ public class BulbFlower : AFlower
     // Update is called once per frame
     void Update()
     {
-        Foods = GameObject.FindObjectOfType<FoodManager>().Foods;
+        Foods = FindObjectOfType<FoodManager>().Foods;
+        CheckForChilren();
+        PullFood();
         Eat();
     }
 }

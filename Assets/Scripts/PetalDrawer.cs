@@ -126,7 +126,7 @@ public class PetalDrawer : MonoBehaviour {
         if (Lifespan < 0 && lifec == LifeCycle.flowering)
         {
             lifec = LifeCycle.fruiting;
-            transform.parent.GetComponent<AFlower>().SeedNum = GenerateSeedNum();
+            //transform.parent.GetComponent<AFlower>().SeedNum = GenerateSeedNum();
             transform.parent.GetComponent<AFlower>().GetFlowerStats(flowerstats);
             transform.parent.GetComponent<AFlower>().FruitingChange = true;
         }
@@ -151,16 +151,11 @@ public class PetalDrawer : MonoBehaviour {
 
     public void ShrinkNDestroy()
     {
-        Debug.Log("shrinkndestorying");
-        //while (Size > 0.02f)
-        //{
-            Size -= 0.5f * Time.deltaTime;
-        //}
-        if (Size < 0.03f)
+        Size -= 0.5f * Time.deltaTime;
+        if (Size < 0.02f)
         {
             Destroy(gameObject);
         }
-        //yield return new WaitForSeconds(0f);
     }
 
     float AudioEffector(float randnum)

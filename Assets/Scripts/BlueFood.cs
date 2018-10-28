@@ -12,10 +12,6 @@ public class BlueFood : MonoBehaviour, IFood
     public void Diminish(float amt)
     {
         FoodAmt -= amt;
-        if (FoodAmt <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 
     void Awake()

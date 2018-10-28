@@ -43,10 +43,7 @@ public class CorollaGenerator : MonoBehaviour {
             Vector3 position = new Vector3(Random.Range(-8f, 8f), Random.Range(5f, 9f), Random.Range(-2f, 5f));
             centerpoint = Instantiate(CenterPoint, position, Quaternion.identity);
             Flowers.Add(centerpoint);
-            if (flower == null)
-            {
-                flower = CreateFlowerStats();
-            }
+            flower = CreateFlowerStats();
             while (!PositionOK)
             {
                 CheckFlowerPosition();
@@ -77,6 +74,7 @@ public class CorollaGenerator : MonoBehaviour {
                     }
                 }
                 petal.GetComponent<PetalDrawer>().GetFlowerStats(flower);
+                centerpoint.GetComponent<AFlower>().flowerstats = flower;
             }
             yield return new WaitForSeconds(0.05f);
         }
@@ -142,8 +140,9 @@ public class CorollaGenerator : MonoBehaviour {
         FlowerStats flowerstatz = new FlowerStats();
         flowerstatz.flowertype = MakeFlowerType(Random.value);
         flowerstatz.flowercolor = MakeColor(Random.value);
-        float MaxSize = Random.value * 0.8f + 0.5f;
-        flowerstatz.size = MaxSize;
+        flowerstatz.foodpullfactor = Random.Range(2f, 10f);
+        flowerstatz.foodpulldistance = Random.Range(6f, 12f);
+        flowerstatz.size = Random.value * 0.8f + 0.5f;
         return flowerstatz;
     }
 

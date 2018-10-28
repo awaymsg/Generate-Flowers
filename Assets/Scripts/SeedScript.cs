@@ -18,6 +18,7 @@ public class SeedScript : MonoBehaviour {
         transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
         SeedDispersed = false;
         GrowNew = false;
+        transform.parent.GetComponent<AFlower>().ResetFoodEaten();
         ParentBody = transform.parent.gameObject.GetComponent<Rigidbody>();
     }
 
